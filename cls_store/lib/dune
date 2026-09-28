@@ -1,0 +1,2 @@
+(library
+ (name cls_store))

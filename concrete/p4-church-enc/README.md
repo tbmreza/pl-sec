@@ -1,0 +1,20 @@
+tests:
+- [x] public-add/            
+- [x] public-bool2/          
+- [x] public-list0/
+- [x] public-add1/           
+- [x] public-curry/          
+- [x] public-list1/
+- [x] public-arith0/         
+- [x] public-factorial-bonus/
+- [x] public-list2/
+- [x] public-arith1/         
+- [x] public-length/         
+- [x] public-multiply/
+- [x] public-arith-bonus/    
+- [x] public-length-letrec/  
+- [x] public-zero/
+- [x] public-bool0/          
+- [x] public-let0/
+- [x] public-bool1/          
+- [x] public-let1/

@@ -1,0 +1,4 @@
+(executable
+ (public_name cls_store)
+ (name main)
+ (libraries cls_store))

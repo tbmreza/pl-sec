@@ -1,0 +1,5 @@
+# cek
+
+```
+stack ghci
+```
