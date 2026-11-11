@@ -17,13 +17,16 @@ while (x < 100) {
     x = x + 1;
 }
 ```
-The transfer function for the loop body is effectively `F(I) = [0, 0] ⊔ (I + [1, 1]) ⊓ [-∞, 99]`.
+At the loop head, the guard admits values in `[0, 99]`; after the final iteration, the post-loop value is `100`. The loop-body transfer function must apply the guard before incrementing:
+`F(I) = [0, 0] ⊔ ((I ⊓ [-∞, 99]) + [1, 1])`.
 
-1.  **Simulate Kleene Iteration**: Try to calculate the fixpoint of `F` starting from `⊥`. Does it terminate quickly?
+Thus the guard-filtered loop-head range is `[0, 99]`, while the final body execution produces the post-loop value `100`.
+
+1.  **Simulate Kleene Iteration**: Try to calculate the guard-filtered loop-head fixpoint starting from `⊥`. Does it terminate quickly?
 2.  **Define a Widening Operator ∇**:
     *   Standard Interval Widening: If an upper bound is unstable (increasing), jump to `+∞`. If a lower bound is unstable (decreasing), jump to `-∞`.
-3.  **Apply Widening**: Calculate the sequence `X₀ = ⊥`, `Xₙ₊₁ = Xₙ ∇ F(Xₙ)`. Find the limit `X^∇`.
-4.  **Apply Narrowing**: Starting from `X^∇`, calculate `Y₀ = X^∇`, `Yₙ₊₁ = Yₙ △ F(Yₙ)`. Does this recover the bound 100?
+3.  **Apply Widening**: Calculate the sequence `X₀ = ⊥`, `Xₙ₊₁ = Xₙ ∇ F(Xₙ)`. Find the widened approximation `X^∇`.
+4.  **Apply Narrowing**: Starting from `X^∇`, calculate `Y₀ = X^∇`, `Yₙ₊₁ = Yₙ △ F(Yₙ)`. Does narrowing recover the guard-filtered loop-head range `[0, 99]`? The final body execution is handled separately and produces post-loop value `100`.
 
 ## Implementation Task
 Implement the Interval domain with Widening and Narrowing.
