@@ -17,7 +17,10 @@ while (x < 100) {
     x = x + 1;
 }
 ```
-The transfer function for the loop body is effectively `F(I) = [0, 0] ⊔ (I + [1, 1]) ⊓ [-∞, 99]`.
+The abstract state at the loop head must retain values that satisfy the loop guard before executing the body. The transfer function is therefore:
+`F(I) = [0, 0] ⊔ ((I ⊓ [-∞, 99]) + [1, 1])`.
+
+This formulation yields the expected loop invariant `[0, 100]`: values below 100 are incremented, and the post-loop value 100 is included after the final iteration.
 
 1.  **Simulate Kleene Iteration**: Try to calculate the fixpoint of `F` starting from `⊥`. Does it terminate quickly?
 2.  **Define a Widening Operator ∇**:
