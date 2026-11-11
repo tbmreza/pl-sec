@@ -17,16 +17,16 @@ while (x < 100) {
     x = x + 1;
 }
 ```
-The abstract state at the loop head must retain values that satisfy the loop guard before executing the body. The transfer function is therefore:
+At the loop head, the guard admits values in `[0, 99]`; after the final iteration, the post-loop value is `100`. The loop-body transfer function must apply the guard before incrementing:
 `F(I) = [0, 0] ⊔ ((I ⊓ [-∞, 99]) + [1, 1])`.
 
-This formulation yields the expected loop invariant `[0, 100]`: values below 100 are incremented, and the post-loop value 100 is included after the final iteration.
+Thus the guard-filtered loop-head range is `[0, 99]`, while the final body execution produces the post-loop value `100`.
 
 1.  **Simulate Kleene Iteration**: Try to calculate the fixpoint of `F` starting from `⊥`. Does it terminate quickly?
 2.  **Define a Widening Operator ∇**:
     *   Standard Interval Widening: If an upper bound is unstable (increasing), jump to `+∞`. If a lower bound is unstable (decreasing), jump to `-∞`.
 3.  **Apply Widening**: Calculate the sequence `X₀ = ⊥`, `Xₙ₊₁ = Xₙ ∇ F(Xₙ)`. Find the limit `X^∇`.
-4.  **Apply Narrowing**: Starting from `X^∇`, calculate `Y₀ = X^∇`, `Yₙ₊₁ = Yₙ △ F(Yₙ)`. Does this recover the bound 100?
+4.  **Apply Narrowing**: Starting from `X^∇`, calculate `Y₀ = X^∇`, `Yₙ₊₁ = Yₙ △ F(Yₙ)`. Does this recover the post-loop bound 100?
 
 ## Implementation Task
 Implement the Interval domain with Widening and Narrowing.
